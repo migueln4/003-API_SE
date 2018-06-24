@@ -14,7 +14,7 @@ public class Main {
             suma += i;
         }
         System.out.println(suma);
-        alternativa();
+        alternativa();//Usando SecureRandom.
     }
 
     private static void alternativa() {
