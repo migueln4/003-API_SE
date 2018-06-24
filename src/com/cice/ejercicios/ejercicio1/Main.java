@@ -39,10 +39,23 @@ public class Main {
         int aux = cadenas[0].length();
         int salida = 0;
         for(int i=1; i<cadenas.length; i++) {
-            int longitud = cadenas[i].length();
-            if (aux < longitud) {
-                aux = longitud;
+            if (aux < cadenas[i].length()) {
+                aux = cadenas[i].length();
                 salida = i;
+            }
+        }
+        return salida;
+    }
+
+    //Alternativa con foreach visto en clase
+
+    private static String mayorCadenaAlt (String[] cadenas) {
+        String salida = "";
+        int longitud = 0;
+        for(String cadena : cadenas) {
+            if (longitud < cadena.length()) {
+                salida = cadena;
+                longitud = cadena.length();
             }
         }
         return salida;

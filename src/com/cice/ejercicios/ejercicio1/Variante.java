@@ -8,7 +8,8 @@ public class Variante {
 
     public static void main(String[] args) {
         System.out.print("Introduce tu cadena de caracteres ");
-        String[] cadena = leerCadena().split(" ");
+        String cadenaLeida = leerCadena().trim(); //Elimino los espacios en blanco delante y detrás de la cadena.
+        String[] cadena = cadenaLeida.split(" ");
         int m = mayorCadena(cadena);
         System.out.println("La palabra más larga introducida es la de la posición "+(m+1)+"\n\""+cadena[m]+"\"");
     }
