@@ -9,12 +9,16 @@ public class Main {
         int a = (int) round(random()*100);
         int b = (int) round(random()*100);
         System.out.println(a+"\t"+b);
+        System.out.println(sumaIntermedios(a,b));
+        alternativa();//Usando SecureRandom.
+    }
+
+    private static int sumaIntermedios(int a, int b) {
         int suma = 0;
         for (int i=min(a,b);i<=max(a,b);i++) {
             suma += i;
         }
-        System.out.println(suma);
-        alternativa();//Usando SecureRandom.
+        return suma;
     }
 
     private static void alternativa() {
@@ -22,10 +26,6 @@ public class Main {
         int a = sr.nextInt(101);
         int b = sr.nextInt(101);
         System.out.println(a+"\t"+b);
-        int suma = 0;
-        for (int i=min(a,b);i<=max(a,b);i++) {
-            suma += i;
-        }
-        System.out.println(suma);
+        System.out.println(sumaIntermedios(a,b));
     }
 }
