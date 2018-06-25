@@ -16,6 +16,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
+        System.out.println("Introduce una opción:");
+        System.out.println("\t1. Nuevo número\n" +
+                "\t2. Media\n" +
+                "\t3. Máximo\n" +
+                "\t4. Mínimo\n" +
+                "\t5. Mostrar lista completa\n" +
+                "\t6. Salir");
     }
 }
