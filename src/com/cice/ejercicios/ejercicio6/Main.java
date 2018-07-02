@@ -9,11 +9,13 @@ package com.cice.ejercicios.ejercicio6;
 4. Salir
  */
 
+import java.util.Hashtable;
 import java.util.Scanner;
 
 public class Main {
     static final Scanner LEER_CONSOLA = new Scanner(System.in);
-    static int[] OPCIONES = {1, 2, 3, 4};
+    static final int[] OPCIONES = {1, 2, 3, 4};
+    static final Hashtable<String,String> LISTA_CONTACTOS = new Hashtable<>();
 
 
     public static void main(String[] args) {
@@ -33,7 +35,7 @@ public class Main {
     private static void ejecutarMenu(int opcion) {
         switch (opcion) {
             case 1:
-                //Añadir contacto
+                anadirContacto();
                 break;
             case 2:
                 //Eliminar contacto
@@ -48,6 +50,16 @@ public class Main {
                 inicio();
                 break;
         }
+    }
+
+    private static void anadirContacto() {
+        System.out.print("Introduce el DNI del nuevo contacto: ");
+        String dni = leerString();//Estaría guay hacer un dniValido, por ejemplo. --> ¿También compruebo que ya esté?
+        System.out.print("Introduce ahora el nombre de la persona: ");
+        String nombre = leerString();
+        LISTA_CONTACTOS.put(dni,nombre);
+        System.out.println("La lista tiene ahora "+LISTA_CONTACTOS.size()+" elementos.");
+        inicio();
     }
 
     private static boolean opcionValida(int n) {
@@ -70,8 +82,12 @@ public class Main {
 
     private static int leerEntero() {
         int n = LEER_CONSOLA.nextInt();
-        LEER_CONSOLA.nextLine();
+        LEER_CONSOLA.nextLine();//Tiene que ser así para que lea el salto de línea que se introduce cuando se lee un entero.
         return n;
+    }
+
+    private static String leerString() {
+        return LEER_CONSOLA.next();
     }
 
 }
