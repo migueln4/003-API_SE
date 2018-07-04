@@ -1,6 +1,7 @@
 package com.cice.ejercicios.ejercicio6;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Dni {
     private String numero;
@@ -34,7 +35,6 @@ public class Dni {
     public int hashCode() {
         return Objects.hash(getNumero());
     }
-
 
     public boolean dniValido() {
         String letra;
@@ -84,5 +84,21 @@ public class Dni {
         int resto = dni % 23;
         String letra = (Character.toString(LETRAS_DNI[resto])).toUpperCase();
         return letra;
+    }
+
+    public void dniAleatorio() {
+        Random r = new Random();
+        String nuevoDni = "";
+        for(int i = 0; i<9;i++)
+            nuevoDni += Integer.toString(r.nextInt(10));
+        char letra = obtenerLetra(Integer.parseInt(nuevoDni));
+        String letraString = Character.toString(letra);
+        nuevoDni += letraString.toUpperCase();
+        setNumero(nuevoDni);
+    }
+
+    private static char obtenerLetra(int n) {
+        int resto = n%23;
+        return LETRAS_DNI[resto];
     }
 }

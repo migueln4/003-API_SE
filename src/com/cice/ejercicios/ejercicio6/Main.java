@@ -74,10 +74,29 @@ public class Main {
         System.out.print("Por favor, introduce el DNI del contacto que quieras eliminar: ");
         String dni = leerString();
         Dni quieroBorrar = new Dni(dni);
+
+        if(quieroBorrar.dniValido()) {
+            System.out.println("El DNI es válido");
+            if (LISTA_CONTACTOS.containsKey(quieroBorrar)) {
+                System.out.println("Encuentra coincidencia en el DNI");
+                LISTA_CONTACTOS.remove(quieroBorrar);
+                System.out.println("Si muestra esto, lo ha borrado");
+                System.out.println(LISTA_CONTACTOS.size());
+            }
+            else {
+                System.out.println("No encuentra coincidencia en el DNI");
+            }
+        }
+        else
+            System.out.println("El DNI no es válido");
+
+        /*
         if(quieroBorrar.dniValido() && LISTA_CONTACTOS.containsKey(dni))
             LISTA_CONTACTOS.remove(dni);
         else
             System.out.println("El DNI introducido no existe en el sistema.");
+
+             */
         inicio();
     }
 

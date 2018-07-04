@@ -16,7 +16,7 @@ import java.util.Scanner;
 
  */
 
-public abstract class Main {
+public class Main {
 
     static Scanner leerConsola = new Scanner(System.in);
     static int[] opciones = {1, 2, 3, 4, 5, 6};
