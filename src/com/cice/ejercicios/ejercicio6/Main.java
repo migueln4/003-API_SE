@@ -45,6 +45,9 @@ public class Main {
                 mostrarContactos();
                 break;
             case 4:
+                anadirDniAleatorio();
+                break;
+            case 0:
                 break;
             default:
                 inicio();
@@ -52,9 +55,18 @@ public class Main {
         }
     }
 
+    private static void anadirDniAleatorio() {
+        Dni aleatorio = new Dni();
+        aleatorio.dniAleatorio();
+        System.out.println("Introduce un nombre para el DNI "+aleatorio.getNumero());
+        String nombre = leerString();
+        LISTA_CONTACTOS.put(aleatorio,nombre);
+        inicio();
+    }
+
     private static void mostrarContactos() {
         if (LISTA_CONTACTOS.size() > 0) {
-            System.out.println("A continuación, se van a mostrar todos los contactos almacenados: ");
+            System.out.println("A continuación, se van a mostrar todos los contactos almacenados: \n");
             Set<Dni> keySetContactos = LISTA_CONTACTOS.keySet();
             int i = 1;
             for (Dni clave : keySetContactos) {
@@ -76,26 +88,10 @@ public class Main {
             String dni = leerString();
             Dni quieroBorrar = new Dni(dni);
 
-            if (quieroBorrar.dniValido()) {
-                System.out.println("El DNI es válido");
-                if (LISTA_CONTACTOS.containsKey(quieroBorrar)) {
-                    System.out.println("Encuentra coincidencia en el DNI");
-                    LISTA_CONTACTOS.remove(quieroBorrar);
-                    System.out.println("Si muestra esto, lo ha borrado");
-                    System.out.println(LISTA_CONTACTOS.size());
-                } else {
-                    System.out.println("No encuentra coincidencia en el DNI");
-                }
-            } else
-                System.out.println("El DNI no es válido");
-
-        /*
-        if(quieroBorrar.dniValido() && LISTA_CONTACTOS.containsKey(dni))
-            LISTA_CONTACTOS.remove(dni);
-        else
-            System.out.println("El DNI introducido no existe en el sistema.");
-
-             */
+            if(quieroBorrar.dniValido() && LISTA_CONTACTOS.containsKey(quieroBorrar))
+                LISTA_CONTACTOS.remove(quieroBorrar);
+            else
+                System.out.println("El DNI introducido no es válido o no existe en el sistema");
         } else
             System.out.println("Aún no hay nada que borrar.");
         inicio();
@@ -128,15 +124,16 @@ public class Main {
     }
 
     private static void abrirMenu() {
-        System.out.println("Por favor, introduce la opción que quieras hacer:\n"+
+        System.out.println("\n\nPor favor, introduce la opción que quieras hacer:\n"+
                 "\t1. Añadir contacto\n"+
                 "\t2. Eliminar contacto\n"+
                 "\t3. Mostrar contactos\n"+
-                "\t4. Salir\n");
+                "\t4. Añadir un DNI aleatorio\n"+
+                "\t0. Salir\n");
     }
 
     private static String leerString() {
-        return LEER_CONSOLA.next();
+        return LEER_CONSOLA.nextLine();
     }
 
 }

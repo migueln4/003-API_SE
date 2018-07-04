@@ -8,7 +8,7 @@ public class Dni {
     static final char[] LETRAS_DNI = {'t','r','w','a','g','m','y','f','p','d','x','b','n','j','z','s','q','v','h','l','c','k','e'};
 
     public Dni(String numero) {
-        this.numero = numero;
+        this.numero = corregirDNI(numero);
     }
 
     public Dni() {
@@ -55,10 +55,11 @@ public class Dni {
     }
 
     private void corregirDNI() {
-        String letraAMayusculas = (this.numero.substring(8)).toUpperCase();
-        StringBuilder nuevaCadena = new StringBuilder(this.numero);
-        nuevaCadena.replace(8,9,letraAMayusculas);
-        setNumero(nuevaCadena.toString());
+        this.numero = this.numero.toUpperCase();
+    }
+
+    private String corregirDNI(String n) {
+        return n.toUpperCase();
     }
 
     private boolean numerosValidos() {
@@ -92,9 +93,8 @@ public class Dni {
         String nuevoDni = "";
         for(int i = 0; i<9;i++)
             nuevoDni += Integer.toString(r.nextInt(10));
-        char letra = obtenerLetra(Integer.parseInt(nuevoDni));
-        String letraString = Character.toString(letra);
-        nuevoDni += letraString.toUpperCase();
+        String letra = Character.toString(obtenerLetra(Integer.parseInt(nuevoDni)));
+        nuevoDni += letra.toUpperCase();
         setNumero(nuevoDni);
     }
 
