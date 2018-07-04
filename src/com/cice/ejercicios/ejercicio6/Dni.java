@@ -41,15 +41,16 @@ public class Dni {
         boolean respuesta;
         if(this.numero.length() != 9 || !Character.isLetter(this.numero.charAt(8)))
             respuesta = false;
+        else {
 
-        letra = (this.numero.substring(8)).toUpperCase();
+            letra = (this.numero.substring(8)).toUpperCase();
 
-        if(numerosValidos() && letraDni().equals(letra)) {
-            respuesta = true;
-            corregirDNI();
+            if (numerosValidos() && letraDni().equals(letra)) {
+                respuesta = true;
+                corregirDNI();
+            } else
+                respuesta = false;
         }
-        else
-            respuesta = false;
         return respuesta;
     }
 

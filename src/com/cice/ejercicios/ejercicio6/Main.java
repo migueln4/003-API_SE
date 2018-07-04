@@ -71,24 +71,23 @@ public class Main {
     }
 
     private static void eliminarContacto() {
-        System.out.print("Por favor, introduce el DNI del contacto que quieras eliminar: ");
-        String dni = leerString();
-        Dni quieroBorrar = new Dni(dni);
+        if(LISTA_CONTACTOS.size() > 0) {
+            System.out.print("Por favor, introduce el DNI del contacto que quieras eliminar: ");
+            String dni = leerString();
+            Dni quieroBorrar = new Dni(dni);
 
-        if(quieroBorrar.dniValido()) {
-            System.out.println("El DNI es válido");
-            if (LISTA_CONTACTOS.containsKey(quieroBorrar)) {
-                System.out.println("Encuentra coincidencia en el DNI");
-                LISTA_CONTACTOS.remove(quieroBorrar);
-                System.out.println("Si muestra esto, lo ha borrado");
-                System.out.println(LISTA_CONTACTOS.size());
-            }
-            else {
-                System.out.println("No encuentra coincidencia en el DNI");
-            }
-        }
-        else
-            System.out.println("El DNI no es válido");
+            if (quieroBorrar.dniValido()) {
+                System.out.println("El DNI es válido");
+                if (LISTA_CONTACTOS.containsKey(quieroBorrar)) {
+                    System.out.println("Encuentra coincidencia en el DNI");
+                    LISTA_CONTACTOS.remove(quieroBorrar);
+                    System.out.println("Si muestra esto, lo ha borrado");
+                    System.out.println(LISTA_CONTACTOS.size());
+                } else {
+                    System.out.println("No encuentra coincidencia en el DNI");
+                }
+            } else
+                System.out.println("El DNI no es válido");
 
         /*
         if(quieroBorrar.dniValido() && LISTA_CONTACTOS.containsKey(dni))
@@ -97,6 +96,8 @@ public class Main {
             System.out.println("El DNI introducido no existe en el sistema.");
 
              */
+        } else
+            System.out.println("Aún no hay nada que borrar.");
         inicio();
     }
 
@@ -105,7 +106,7 @@ public class Main {
         String dni = leerString();
         Dni nif = new Dni(dni);
         while(!nif.dniValido()) {
-            System.out.println("Por favor, el DNI introducido no es válido o ya existe. Vuelva a intentarlo: ");
+            System.out.println("Por favor, el DNI introducido no es válido. Vuelva a intentarlo: ");
             dni = leerString();
             nif.setNumero(dni);
         }
