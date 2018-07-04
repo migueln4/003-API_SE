@@ -11,11 +11,12 @@ package com.cice.ejercicios.ejercicio6;
 
 import java.util.Hashtable;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Main {
     static final Scanner LEER_CONSOLA = new Scanner(System.in);
     static final int[] OPCIONES = {1, 2, 3, 4};
-    static final Hashtable<String,String> LISTA_CONTACTOS = new Hashtable<>();
+    static final Hashtable<Dni,String> LISTA_CONTACTOS = new Hashtable<>();
 
 
     public static void main(String[] args) {
@@ -24,10 +25,10 @@ public class Main {
 
     private static void inicio() {
         abrirMenu();
-        int opcion = leerEntero();
+        int opcion = Integer.parseInt(leerString());
         while (!opcionValida(opcion)) {
             abrirMenu();
-            opcion = leerEntero();
+            opcion = Integer.parseInt(leerString());
         }
         ejecutarMenu(opcion);
     }
@@ -38,13 +39,12 @@ public class Main {
                 anadirContacto();
                 break;
             case 2:
-                //Eliminar contacto
+                eliminarContacto();
                 break;
             case 3:
-                //Mostrar contactos
+                mostrarContactos();
                 break;
             case 4:
-                //Salir
                 break;
             default:
                 inicio();
@@ -52,12 +52,47 @@ public class Main {
         }
     }
 
+    private static void mostrarContactos() {
+        if (LISTA_CONTACTOS.size() > 0) {
+            System.out.println("A continuación, se van a mostrar todos los contactos almacenados: ");
+            Set<Dni> keySetContactos = LISTA_CONTACTOS.keySet();
+            int i = 1;
+            for (Dni clave : keySetContactos) {
+                System.out.println("Contacto #" + i);
+                System.out.println("\tDNI: " + clave.getNumero());
+                System.out.println("\tNombre: " + LISTA_CONTACTOS.get(clave));
+                i++;
+            }
+        }
+        else {
+            System.out.println("La lista está vacía actualmente.");
+        }
+        inicio();
+    }
+
+    private static void eliminarContacto() {
+        System.out.print("Por favor, introduce el DNI del contacto que quieras eliminar: ");
+        String dni = leerString();
+        Dni quieroBorrar = new Dni(dni);
+        if(quieroBorrar.dniValido() && LISTA_CONTACTOS.containsKey(dni))
+            LISTA_CONTACTOS.remove(dni);
+        else
+            System.out.println("El DNI introducido no existe en el sistema.");
+        inicio();
+    }
+
     private static void anadirContacto() {
         System.out.print("Introduce el DNI del nuevo contacto: ");
-        String dni = leerString();//Estaría guay hacer un dniValido, por ejemplo. --> ¿También compruebo que ya esté?
+        String dni = leerString();
+        Dni nif = new Dni(dni);
+        while(!nif.dniValido()) {
+            System.out.println("Por favor, el DNI introducido no es válido o ya existe. Vuelva a intentarlo: ");
+            dni = leerString();
+            nif.setNumero(dni);
+        }
         System.out.print("Introduce ahora el nombre de la persona: ");
         String nombre = leerString();
-        LISTA_CONTACTOS.put(dni,nombre);
+        LISTA_CONTACTOS.put(nif,nombre);
         System.out.println("La lista tiene ahora "+LISTA_CONTACTOS.size()+" elementos.");
         inicio();
     }
@@ -78,12 +113,6 @@ public class Main {
                 "\t2. Eliminar contacto\n"+
                 "\t3. Mostrar contactos\n"+
                 "\t4. Salir\n");
-    }
-
-    private static int leerEntero() {
-        int n = LEER_CONSOLA.nextInt();
-        LEER_CONSOLA.nextLine();//Tiene que ser así para que lea el salto de línea que se introduce cuando se lee un entero.
-        return n;
     }
 
     private static String leerString() {
